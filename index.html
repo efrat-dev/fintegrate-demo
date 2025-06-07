@@ -119,22 +119,6 @@
         border-bottom: 1px solid rgba(52, 152, 219, 0.2);
       }
 
-      .stat-item {
-        text-align: center;
-      }
-
-      .stat-number {
-        font-size: 2rem;
-        font-weight: 700;
-        color: var(--secondary-color);
-      }
-
-      .stat-label {
-        font-size: 0.9rem;
-        color: var(--primary-color);
-        margin-top: 5px;
-      }
-
       .flipbook-container {
         position: relative;
         width: 100%;
@@ -599,10 +583,6 @@
           padding: 15px;
         }
 
-        .stat-number {
-          font-size: 1.5rem;
-        }
-
         .controls {
           flex-direction: column;
           gap: 12px;
@@ -666,14 +646,6 @@
           flex-direction: column;
           gap: 10px;
           padding: 10px;
-        }
-
-        .stat-number {
-          font-size: 1.3rem;
-        }
-
-        .stat-label {
-          font-size: 0.8rem;
         }
 
         .controls {
@@ -784,21 +756,6 @@
         <p>Professional Portfolio - Efrat Bdil | Full Stack Developer</p>
       </div>
 
-      <div class="stats-bar">
-        <div class="stat-item">
-          <div class="stat-number">65</div>
-          <div class="stat-label">Slides</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">HD</div>
-          <div class="stat-label">Image Quality</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">3D</div>
-          <div class="stat-label">Flip Effect</div>
-        </div>
-      </div>
-
       <div class="progress-bar">
         <div class="progress-fill" id="progressFill"></div>
       </div>
@@ -852,77 +809,6 @@
           document.getElementById("currentPage").textContent = this.currentPage;
         }
 
-        // createSlides() {
-        //   this.flipbook.innerHTML = "";
-
-        //   // Create left page (previous page)
-        //   const leftPage = document.createElement("div");
-        //   leftPage.className = "page left";
-        //   leftPage.style.zIndex = 2;
-
-        //   const leftImg = document.createElement("img");
-        //   const leftPageNum = this.currentPage > 1 ? this.currentPage - 1 : 1;
-        //   leftImg.src = `slides/slide${leftPageNum}.jpg`;
-        //   leftImg.alt = `Slide ${leftPageNum}`;
-        //   leftImg.style.width = "100%";
-        //   leftImg.style.height = "100%";
-        //   leftImg.style.objectFit = "cover";
-
-        //   leftImg.onload = () => {
-        //     leftImg.style.opacity = "1";
-        //   };
-        //   leftImg.onerror = () => {
-        //     leftImg.src = this.createPlaceholderImage(leftPageNum);
-        //   };
-
-        //   const leftPageNumber = document.createElement("div");
-        //   leftPageNumber.className = "page-number";
-        //   leftPageNumber.textContent = leftPageNum;
-
-        //   leftPage.appendChild(leftImg);
-        //   leftPage.appendChild(leftPageNumber);
-
-        //   // Create right page (current page)
-        //   const rightPage = document.createElement("div");
-        //   rightPage.className = "page right";
-        //   rightPage.style.zIndex = 1;
-
-        //   const rightImg = document.createElement("img");
-        //   rightImg.src = `slides/slide${this.currentPage}.jpg`;
-        //   rightImg.alt = `Slide ${this.currentPage}`;
-        //   rightImg.style.width = "100%";
-        //   rightImg.style.height = "100%";
-        //   rightImg.style.objectFit = "cover";
-
-        //   rightImg.onload = () => {
-        //     rightImg.style.opacity = "1";
-        //   };
-        //   rightImg.onerror = () => {
-        //     rightImg.src = this.createPlaceholderImage(this.currentPage);
-        //   };
-
-        //   const rightPageNumber = document.createElement("div");
-        //   rightPageNumber.className = "page-number";
-        //   rightPageNumber.textContent = this.currentPage;
-
-        //   rightPage.appendChild(rightImg);
-        //   rightPage.appendChild(rightPageNumber);
-
-        //   // Add click events for preview
-        //   leftPage.addEventListener("click", (e) => {
-        //     if (e.target.tagName === "IMG") {
-        //       this.showSlidePreview(leftPageNum);
-        //     }
-        //   });
-        //   rightPage.addEventListener("click", (e) => {
-        //     if (e.target.tagName === "IMG") {
-        //       this.showSlidePreview(this.currentPage);
-        //     }
-        //   });
-
-        //   this.flipbook.appendChild(leftPage);
-        //   this.flipbook.appendChild(rightPage);
-        // }
         createSlides() {
           this.flipbook.innerHTML = "";
 
@@ -964,12 +850,6 @@
             this.flipbook.appendChild(rightPage);
             return;
           }
-
-          // For pages 2 and onwards, calculate the correct page pair
-          // Page 2 shows: left=2, right=3
-          // Page 3 shows: left=2, right=3 (same spread)
-          // Page 4 shows: left=4, right=5
-          // Page 5 shows: left=4, right=5 (same spread)
 
           let leftPageNum, rightPageNum;
 
