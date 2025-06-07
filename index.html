@@ -513,27 +513,7 @@
 
       <div class="flipbook-container">
         <div id="flipbook">
-          <div class="page">
-            <img
-              src="slides/slide1.jpg"
-              alt="Slide 1"
-              style="width: 100%; height: 100%"
-            />
-          </div>
-          <div class="page">
-            <img
-              src="slides/slide2.jpg"
-              alt="Slide 2"
-              style="width: 100%; height: 100%"
-            />
-          </div>
-          <div class="page">
-            <img
-              src="slides/slide3.jpg"
-              alt="Slide 3"
-              style="width: 100%; height: 100%"
-            />
-          </div>
+          <!-- כל 65 השקופיות נוצרות כאן באופן דינמי -->
         </div>
       </div>
 
@@ -557,7 +537,6 @@
       <button class="close-preview" id="closePreview">×</button>
       <img id="previewImage" src="" alt="Slide Preview" />
     </div>
-
     <script>
       class AdvancedFlipbook {
         constructor() {
@@ -663,7 +642,6 @@
             dotsContainer.appendChild(dot);
           }
         }
-
         bindEvents() {
           // Navigation buttons
           document
@@ -872,6 +850,9 @@
           btn.classList.toggle("muted", !this.soundEnabled);
         }
       }
+      document.addEventListener("DOMContentLoaded", () => {
+        new AdvancedFlipbook();
+      });
     </script>
   </body>
 </html>
