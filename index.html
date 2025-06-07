@@ -36,7 +36,7 @@
       }
 
       .container {
-        max-width: 1400px;
+        max-width: 2400px; /* הגדלתי מ-1400px */
         width: 100%;
         background: rgba(255, 255, 255, 0.95);
         border-radius: 25px;
@@ -138,8 +138,8 @@
       .flipbook-container {
         position: relative;
         width: 100%;
-        height: 800px;
-        perspective: 2000px;
+        height: 900px;
+        perspective: 2900px;
         margin: 40px auto;
         display: flex;
         justify-content: center;
@@ -153,8 +153,8 @@
 
       #flipbook {
         position: relative;
-        width: 1028px;
-        height: 724px;
+        width: 2400px;
+        height: 950px;
         display: flex;
         transform-style: preserve-3d;
         transition: var(--transition);
@@ -162,8 +162,8 @@
 
       .page {
         position: absolute;
-        width: 514px;
-        height: 724px;
+        width: 1150px;
+        height: 950px;
         background: white;
         border: 2px solid #e0e0e0;
         border-radius: 15px;
@@ -188,7 +188,6 @@
       .page img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
         border-radius: 13px;
         transition: transform 0.3s ease;
       }
@@ -346,69 +345,360 @@
         transform: scale(1.3);
       }
 
-      @media (max-width: 1200px) {
+      /* תיקון הרספונסיביות */
+
+      /* מסכים גדולים מאוד - 2400px+ */
+      @media (min-width: 2400px) {
+        .container {
+          max-width: 2400px;
+        }
+
+        #flipbook {
+          width: 2400px;
+          height: 950px;
+        }
+
+        .page {
+          width: 1150px;
+          height: 950px;
+        }
+      }
+
+      /* מסכים גדולים - 1800px-2399px */
+      @media (max-width: 2399px) and (min-width: 1800px) {
+        .container {
+          max-width: 1800px;
+        }
+
+        #flipbook {
+          width: 1800px;
+          height: 720px;
+        }
+
+        .page {
+          width: 870px;
+          height: 720px;
+        }
+
+        .flipbook-container {
+          height: 760px;
+        }
+      }
+
+      /* מסכים בינוניים-גדולים - 1400px-1799px */
+      @media (max-width: 1799px) and (min-width: 1400px) {
+        .container {
+          max-width: 1400px;
+        }
+
+        #flipbook {
+          width: 1400px;
+          height: 560px;
+        }
+
+        .page {
+          width: 680px;
+          height: 560px;
+        }
+
+        .flipbook-container {
+          height: 600px;
+        }
+      }
+
+      /* מסכים בינוניים - 1200px-1399px */
+      @media (max-width: 1399px) and (min-width: 1200px) {
+        .container {
+          max-width: 1200px;
+        }
+
+        #flipbook {
+          width: 1200px;
+          height: 480px;
+        }
+
+        .page {
+          width: 580px;
+          height: 480px;
+        }
+
+        .flipbook-container {
+          height: 520px;
+        }
+      }
+
+      /* מסכים בינוניים-קטנים - 1000px-1199px */
+      @media (max-width: 1199px) and (min-width: 1000px) {
+        .container {
+          max-width: 1000px;
+        }
+
+        #flipbook {
+          width: 1000px;
+          height: 400px;
+        }
+
+        .page {
+          width: 480px;
+          height: 400px;
+        }
+
+        .flipbook-container {
+          height: 440px;
+        }
+      }
+
+      /* מסכים קטנים - 800px-999px */
+      @media (max-width: 999px) and (min-width: 800px) {
+        .container {
+          max-width: 800px;
+        }
+
         #flipbook {
           width: 800px;
-          height: 564px;
+          height: 320px;
         }
 
         .page {
-          width: 400px;
-          height: 564px;
+          width: 380px;
+          height: 320px;
+        }
+
+        .flipbook-container {
+          height: 360px;
+        }
+
+        .header h1 {
+          font-size: 2.5rem;
+        }
+
+        .header p {
+          font-size: 1.2rem;
         }
       }
 
-      @media (max-width: 900px) {
+      /* טאבלטים - 600px-799px */
+      @media (max-width: 799px) and (min-width: 600px) {
+        .container {
+          max-width: 95%;
+          margin: 10px;
+        }
+
         #flipbook {
           width: 600px;
-          height: 423px;
+          height: 240px;
         }
 
         .page {
-          width: 300px;
-          height: 423px;
-        }
-      }
-
-      @media (max-width: 768px) {
-        #flipbook {
-          width: 90%;
-          height: 400px;
+          width: 280px;
+          height: 240px;
         }
 
-        .page {
-          width: 45%;
-          height: 400px;
+        .flipbook-container {
+          height: 280px;
+          margin: 20px auto;
+        }
+
+        .header {
+          padding: 30px 20px;
         }
 
         .header h1 {
           font-size: 2rem;
         }
 
-        .controls {
-          flex-wrap: wrap;
-          gap: 15px;
+        .header p {
+          font-size: 1rem;
         }
 
         .stats-bar {
           flex-wrap: wrap;
           gap: 20px;
+          padding: 15px;
+        }
+
+        .controls {
+          flex-wrap: wrap;
+          gap: 15px;
+          padding: 20px;
+        }
+
+        .btn {
+          padding: 12px 20px;
+          font-size: 1rem;
         }
       }
 
+      /* מובייל גדול - 480px-599px */
+      @media (max-width: 599px) and (min-width: 480px) {
+        .container {
+          max-width: 95%;
+          margin: 10px;
+          border-radius: 15px;
+        }
+
+        #flipbook {
+          width: 480px;
+          height: 192px;
+        }
+
+        .page {
+          width: 220px;
+          height: 192px;
+        }
+
+        .flipbook-container {
+          height: 232px;
+          margin: 15px auto;
+        }
+
+        .header {
+          padding: 25px 15px;
+        }
+
+        .header h1 {
+          font-size: 1.8rem;
+        }
+
+        .header p {
+          font-size: 0.9rem;
+        }
+
+        .stats-bar {
+          flex-direction: column;
+          gap: 15px;
+          padding: 15px;
+        }
+
+        .stat-number {
+          font-size: 1.5rem;
+        }
+
+        .controls {
+          flex-direction: column;
+          gap: 12px;
+          padding: 15px;
+        }
+
+        .btn {
+          width: 100%;
+          padding: 12px 15px;
+          font-size: 0.9rem;
+        }
+
+        .navigation-dots {
+          gap: 6px;
+        }
+
+        .dot {
+          width: 10px;
+          height: 10px;
+        }
+      }
+
+      /* מובייל קטן - עד 479px */
+      @media (max-width: 479px) {
+        .container {
+          max-width: 95%;
+          margin: 5px;
+          border-radius: 10px;
+        }
+
+        #flipbook {
+          width: 100%;
+          max-width: 400px;
+          height: 160px;
+        }
+
+        .page {
+          width: 48%;
+          height: 160px;
+        }
+
+        .flipbook-container {
+          height: 200px;
+          margin: 10px auto;
+          padding: 10px;
+        }
+
+        .header {
+          padding: 20px 10px;
+        }
+
+        .header h1 {
+          font-size: 1.5rem;
+        }
+
+        .header p {
+          font-size: 0.8rem;
+        }
+
+        .stats-bar {
+          flex-direction: column;
+          gap: 10px;
+          padding: 10px;
+        }
+
+        .stat-number {
+          font-size: 1.3rem;
+        }
+
+        .stat-label {
+          font-size: 0.8rem;
+        }
+
+        .controls {
+          flex-direction: column;
+          gap: 10px;
+          padding: 10px;
+        }
+
+        .btn {
+          width: 100%;
+          padding: 10px 12px;
+          font-size: 0.8rem;
+        }
+
+        .page-counter {
+          padding: 8px 12px;
+          font-size: 0.9rem;
+        }
+
+        .navigation-dots {
+          gap: 4px;
+        }
+
+        .dot {
+          width: 8px;
+          height: 8px;
+        }
+
+        .slide-preview {
+          width: 95%;
+          height: 95%;
+          padding: 10px;
+        }
+
+        .close-preview {
+          width: 35px;
+          height: 35px;
+          font-size: 1.2rem;
+        }
+      }
       .slide-preview {
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%) scale(0);
-        width: 80%;
-        height: 80%;
+        width: 90%; /* הגדלתי מ-80% */
+        height: 90%; /* הגדלתי מ-80% */
         background: white;
         border-radius: 15px;
         box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
         z-index: 1000;
         transition: transform 0.3s ease;
         overflow: hidden;
+        padding: 20px; /* הוספתי padding */
       }
 
       .slide-preview.active {
@@ -533,16 +823,143 @@
           document.getElementById("currentPage").textContent = this.currentPage;
         }
 
+        // createSlides() {
+        //   this.flipbook.innerHTML = "";
+
+        //   // Create left page (previous page)
+        //   const leftPage = document.createElement("div");
+        //   leftPage.className = "page left";
+        //   leftPage.style.zIndex = 2;
+
+        //   const leftImg = document.createElement("img");
+        //   const leftPageNum = this.currentPage > 1 ? this.currentPage - 1 : 1;
+        //   leftImg.src = `slides/slide${leftPageNum}.jpg`;
+        //   leftImg.alt = `Slide ${leftPageNum}`;
+        //   leftImg.style.width = "100%";
+        //   leftImg.style.height = "100%";
+        //   leftImg.style.objectFit = "cover";
+
+        //   leftImg.onload = () => {
+        //     leftImg.style.opacity = "1";
+        //   };
+        //   leftImg.onerror = () => {
+        //     leftImg.src = this.createPlaceholderImage(leftPageNum);
+        //   };
+
+        //   const leftPageNumber = document.createElement("div");
+        //   leftPageNumber.className = "page-number";
+        //   leftPageNumber.textContent = leftPageNum;
+
+        //   leftPage.appendChild(leftImg);
+        //   leftPage.appendChild(leftPageNumber);
+
+        //   // Create right page (current page)
+        //   const rightPage = document.createElement("div");
+        //   rightPage.className = "page right";
+        //   rightPage.style.zIndex = 1;
+
+        //   const rightImg = document.createElement("img");
+        //   rightImg.src = `slides/slide${this.currentPage}.jpg`;
+        //   rightImg.alt = `Slide ${this.currentPage}`;
+        //   rightImg.style.width = "100%";
+        //   rightImg.style.height = "100%";
+        //   rightImg.style.objectFit = "cover";
+
+        //   rightImg.onload = () => {
+        //     rightImg.style.opacity = "1";
+        //   };
+        //   rightImg.onerror = () => {
+        //     rightImg.src = this.createPlaceholderImage(this.currentPage);
+        //   };
+
+        //   const rightPageNumber = document.createElement("div");
+        //   rightPageNumber.className = "page-number";
+        //   rightPageNumber.textContent = this.currentPage;
+
+        //   rightPage.appendChild(rightImg);
+        //   rightPage.appendChild(rightPageNumber);
+
+        //   // Add click events for preview
+        //   leftPage.addEventListener("click", (e) => {
+        //     if (e.target.tagName === "IMG") {
+        //       this.showSlidePreview(leftPageNum);
+        //     }
+        //   });
+        //   rightPage.addEventListener("click", (e) => {
+        //     if (e.target.tagName === "IMG") {
+        //       this.showSlidePreview(this.currentPage);
+        //     }
+        //   });
+
+        //   this.flipbook.appendChild(leftPage);
+        //   this.flipbook.appendChild(rightPage);
+        // }
         createSlides() {
           this.flipbook.innerHTML = "";
 
-          // Create left page (previous page)
+          // Special case for first page - show only one page
+          if (this.currentPage === 1) {
+            const rightPage = document.createElement("div");
+            rightPage.className = "page right";
+            rightPage.style.zIndex = 1;
+            rightPage.style.margin = "0 auto";
+            rightPage.style.transform = "translateX(-50%)";
+
+            const rightImg = document.createElement("img");
+            rightImg.src = `slides/slide1.jpg`;
+            rightImg.alt = `Slide 1`;
+            rightImg.style.width = "100%";
+            rightImg.style.height = "100%";
+            rightImg.style.objectFit = "cover";
+
+            rightImg.onload = () => {
+              rightImg.style.opacity = "1";
+            };
+            rightImg.onerror = () => {
+              rightImg.src = this.createPlaceholderImage(1);
+            };
+
+            const rightPageNumber = document.createElement("div");
+            rightPageNumber.className = "page-number";
+            rightPageNumber.textContent = "1";
+
+            rightPage.appendChild(rightImg);
+            rightPage.appendChild(rightPageNumber);
+
+            rightPage.addEventListener("click", (e) => {
+              if (e.target.tagName === "IMG") {
+                this.showSlidePreview(1);
+              }
+            });
+
+            this.flipbook.appendChild(rightPage);
+            return;
+          }
+
+          // For pages 2 and onwards, calculate the correct page pair
+          // Page 2 shows: left=2, right=3
+          // Page 3 shows: left=2, right=3 (same spread)
+          // Page 4 shows: left=4, right=5
+          // Page 5 shows: left=4, right=5 (same spread)
+
+          let leftPageNum, rightPageNum;
+
+          if (this.currentPage % 2 === 0) {
+            // Even page number (2, 4, 6, 8...)
+            leftPageNum = this.currentPage;
+            rightPageNum = this.currentPage + 1;
+          } else {
+            // Odd page number (3, 5, 7, 9...)
+            leftPageNum = this.currentPage - 1;
+            rightPageNum = this.currentPage;
+          }
+
+          // Create left page
           const leftPage = document.createElement("div");
           leftPage.className = "page left";
           leftPage.style.zIndex = 2;
 
           const leftImg = document.createElement("img");
-          const leftPageNum = this.currentPage > 1 ? this.currentPage - 1 : 1;
           leftImg.src = `slides/slide${leftPageNum}.jpg`;
           leftImg.alt = `Slide ${leftPageNum}`;
           leftImg.style.width = "100%";
@@ -563,46 +980,53 @@
           leftPage.appendChild(leftImg);
           leftPage.appendChild(leftPageNumber);
 
-          // Create right page (current page)
-          const rightPage = document.createElement("div");
-          rightPage.className = "page right";
-          rightPage.style.zIndex = 1;
-
-          const rightImg = document.createElement("img");
-          rightImg.src = `slides/slide${this.currentPage}.jpg`;
-          rightImg.alt = `Slide ${this.currentPage}`;
-          rightImg.style.width = "100%";
-          rightImg.style.height = "100%";
-          rightImg.style.objectFit = "cover";
-
-          rightImg.onload = () => {
-            rightImg.style.opacity = "1";
-          };
-          rightImg.onerror = () => {
-            rightImg.src = this.createPlaceholderImage(this.currentPage);
-          };
-
-          const rightPageNumber = document.createElement("div");
-          rightPageNumber.className = "page-number";
-          rightPageNumber.textContent = this.currentPage;
-
-          rightPage.appendChild(rightImg);
-          rightPage.appendChild(rightPageNumber);
-
-          // Add click events for preview
           leftPage.addEventListener("click", (e) => {
             if (e.target.tagName === "IMG") {
               this.showSlidePreview(leftPageNum);
             }
           });
-          rightPage.addEventListener("click", (e) => {
-            if (e.target.tagName === "IMG") {
-              this.showSlidePreview(this.currentPage);
-            }
-          });
 
-          this.flipbook.appendChild(leftPage);
-          this.flipbook.appendChild(rightPage);
+          // Create right page (only if it exists)
+          if (rightPageNum <= this.totalPages) {
+            const rightPage = document.createElement("div");
+            rightPage.className = "page right";
+            rightPage.style.zIndex = 1;
+
+            const rightImg = document.createElement("img");
+            rightImg.src = `slides/slide${rightPageNum}.jpg`;
+            rightImg.alt = `Slide ${rightPageNum}`;
+            rightImg.style.width = "100%";
+            rightImg.style.height = "100%";
+            rightImg.style.objectFit = "cover";
+
+            rightImg.onload = () => {
+              rightImg.style.opacity = "1";
+            };
+            rightImg.onerror = () => {
+              rightImg.src = this.createPlaceholderImage(rightPageNum);
+            };
+
+            const rightPageNumber = document.createElement("div");
+            rightPageNumber.className = "page-number";
+            rightPageNumber.textContent = rightPageNum;
+
+            rightPage.appendChild(rightImg);
+            rightPage.appendChild(rightPageNumber);
+
+            rightPage.addEventListener("click", (e) => {
+              if (e.target.tagName === "IMG") {
+                this.showSlidePreview(rightPageNum);
+              }
+            });
+
+            this.flipbook.appendChild(leftPage);
+            this.flipbook.appendChild(rightPage);
+          } else {
+            // Last page is odd, show only left page
+            leftPage.style.margin = "0 auto";
+            leftPage.style.transform = "translateX(50%)";
+            this.flipbook.appendChild(leftPage);
+          }
         }
 
         showSlidePreview(slideNumber) {
@@ -773,13 +1197,13 @@
 
         nextPage() {
           if (this.currentPage < this.totalPages) {
-            this.goToPage(this.currentPage + 1);
+            this.goToPage(this.currentPage + 2);
           }
         }
 
         prevPage() {
           if (this.currentPage > 1) {
-            this.goToPage(this.currentPage - 1);
+            this.goToPage(this.currentPage - 2);
           }
         }
 
