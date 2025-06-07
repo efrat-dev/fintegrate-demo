@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ספר דפדוף מקצועי - Efrat Bdil Portfolio</title>
+    <title>Professional Digital Flipbook - Efrat Bdil Portfolio</title>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
       * {
         margin: 0;
@@ -25,7 +25,7 @@
       }
 
       body {
-        font-family: "Heebo", Arial, sans-serif;
+        font-family: "Inter", Arial, sans-serif;
         background: var(--bg-gradient);
         min-height: 100vh;
         display: flex;
@@ -138,7 +138,7 @@
       .flipbook-container {
         position: relative;
         width: 100%;
-        height: 700px;
+        height: 800px;
         perspective: 2000px;
         margin: 40px auto;
         display: flex;
@@ -153,33 +153,36 @@
 
       #flipbook {
         position: relative;
-        width: 1000px;
-        height: 600px;
+        width: 1028px;
+        height: 724px;
+        display: flex;
         transform-style: preserve-3d;
         transition: var(--transition);
       }
 
       .page {
         position: absolute;
-        width: 500px;
-        height: 600px;
+        width: 514px;
+        height: 724px;
         background: white;
         border: 2px solid #e0e0e0;
         border-radius: 15px;
         box-shadow: var(--shadow-light);
-        transform-style: preserve-3d;
-        transform-origin: left center;
-        transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         overflow: hidden;
         cursor: pointer;
+        transition: transform 0.3s ease;
       }
 
       .page:hover {
         box-shadow: var(--shadow-heavy);
       }
 
-      .page.flipped {
-        transform: rotateY(-180deg);
+      .page.left {
+        left: 0;
+      }
+
+      .page.right {
+        right: 0;
       }
 
       .page img {
@@ -301,26 +304,6 @@
         background: linear-gradient(135deg, #95a5a6, #7f8c8d);
       }
 
-      .loading-spinner {
-        display: none;
-        width: 50px;
-        height: 50px;
-        border: 5px solid #f3f3f3;
-        border-top: 5px solid var(--secondary-color);
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        margin: 20px auto;
-      }
-
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-
       .progress-bar {
         width: 100%;
         height: 6px;
@@ -340,28 +323,6 @@
         border-radius: 3px;
         transition: width 0.3s ease;
         width: 0%;
-      }
-
-      .flip-animation {
-        animation: pageFlip 1s ease-in-out;
-      }
-
-      @keyframes pageFlip {
-        0% {
-          transform: rotateY(0deg) scale(1);
-        }
-        25% {
-          transform: rotateY(-45deg) scale(0.95);
-        }
-        50% {
-          transform: rotateY(-90deg) scale(0.9);
-        }
-        75% {
-          transform: rotateY(-135deg) scale(0.95);
-        }
-        100% {
-          transform: rotateY(-180deg) scale(1);
-        }
       }
 
       .navigation-dots {
@@ -388,12 +349,24 @@
       @media (max-width: 1200px) {
         #flipbook {
           width: 800px;
-          height: 500px;
+          height: 564px;
         }
 
         .page {
           width: 400px;
-          height: 500px;
+          height: 564px;
+        }
+      }
+
+      @media (max-width: 900px) {
+        #flipbook {
+          width: 600px;
+          height: 423px;
+        }
+
+        .page {
+          width: 300px;
+          height: 423px;
         }
       }
 
@@ -488,22 +461,22 @@
   <body>
     <div class="container">
       <div class="header">
-        <h1>📚 ספר דפדוף דיגיטלי מתקדם</h1>
-        <p>Portfolio מקצועי - Efrat Bdil | Full Stack Developer</p>
+        <h1>📚 Professional Digital Flipbook</h1>
+        <p>Professional Portfolio - Efrat Bdil | Full Stack Developer</p>
       </div>
 
       <div class="stats-bar">
         <div class="stat-item">
           <div class="stat-number">65</div>
-          <div class="stat-label">שקופיות</div>
+          <div class="stat-label">Slides</div>
         </div>
         <div class="stat-item">
           <div class="stat-number">HD</div>
-          <div class="stat-label">איכות תמונה</div>
+          <div class="stat-label">Image Quality</div>
         </div>
         <div class="stat-item">
           <div class="stat-number">3D</div>
-          <div class="stat-label">אפקט דפדוף</div>
+          <div class="stat-label">Flip Effect</div>
         </div>
       </div>
 
@@ -513,21 +486,21 @@
 
       <div class="flipbook-container">
         <div id="flipbook">
-          <!-- כל 65 השקופיות נוצרות כאן באופן דינמי -->
+          <!-- All 65 slides will be created here dynamically -->
         </div>
       </div>
 
       <div class="navigation-dots" id="navigationDots"></div>
 
       <div class="controls">
-        <button class="btn" id="firstPage">⏮️ עמוד ראשון</button>
-        <button class="btn" id="prevPage">◀️ הקודם</button>
+        <button class="btn" id="firstPage">⏮️ First Page</button>
+        <button class="btn" id="prevPage">◀️ Previous</button>
         <div class="page-counter">
           <span id="currentPage">1</span> / <span id="totalPages">65</span>
         </div>
-        <button class="btn" id="nextPage">הבא ▶️</button>
-        <button class="btn" id="lastPage">עמוד אחרון ⏭️</button>
-        <button class="btn sound-toggle" id="soundToggle">🔊 קול</button>
+        <button class="btn" id="nextPage">Next ▶️</button>
+        <button class="btn" id="lastPage">Last Page ⏭️</button>
+        <button class="btn sound-toggle" id="soundToggle">🔊 Sound</button>
       </div>
     </div>
 
@@ -537,6 +510,7 @@
       <button class="close-preview" id="closePreview">×</button>
       <img id="previewImage" src="" alt="Slide Preview" />
     </div>
+
     <script>
       class AdvancedFlipbook {
         constructor() {
@@ -560,71 +534,102 @@
         }
 
         createSlides() {
-          for (let i = 1; i <= this.totalPages; i++) {
-            const page = document.createElement("div");
-            page.className = "page";
-            page.style.zIndex = this.totalPages - i;
+          this.flipbook.innerHTML = "";
 
-            const img = document.createElement("img");
-            img.src = `slides/slide${i}.jpg`;
-            img.alt = `Slide ${i}`;
-            img.style.width = "100%";
-            img.style.height = "100%";
-            img.style.objectFit = "cover";
+          // Create left page (previous page)
+          const leftPage = document.createElement("div");
+          leftPage.className = "page left";
+          leftPage.style.zIndex = 2;
 
-            // Add loading placeholder
-            img.onload = () => {
-              img.style.opacity = "1";
-            };
-            img.onerror = () => {
-              img.src = this.createPlaceholderImage(i);
-            };
+          const leftImg = document.createElement("img");
+          const leftPageNum = this.currentPage > 1 ? this.currentPage - 1 : 1;
+          leftImg.src = `slides/slide${leftPageNum}.jpg`;
+          leftImg.alt = `Slide ${leftPageNum}`;
+          leftImg.style.width = "100%";
+          leftImg.style.height = "100%";
+          leftImg.style.objectFit = "cover";
 
-            const pageNumber = document.createElement("div");
-            pageNumber.className = "page-number";
-            pageNumber.textContent = i;
+          leftImg.onload = () => {
+            leftImg.style.opacity = "1";
+          };
+          leftImg.onerror = () => {
+            leftImg.src = this.createPlaceholderImage(leftPageNum);
+          };
 
-            page.appendChild(img);
-            page.appendChild(pageNumber);
+          const leftPageNumber = document.createElement("div");
+          leftPageNumber.className = "page-number";
+          leftPageNumber.textContent = leftPageNum;
 
-            // Add click event for preview
-            page.addEventListener("click", (e) => {
-              if (e.target.tagName === "IMG") {
-                this.showSlidePreview(i);
-              }
-            });
+          leftPage.appendChild(leftImg);
+          leftPage.appendChild(leftPageNumber);
 
-            this.flipbook.appendChild(page);
-          }
+          // Create right page (current page)
+          const rightPage = document.createElement("div");
+          rightPage.className = "page right";
+          rightPage.style.zIndex = 1;
+
+          const rightImg = document.createElement("img");
+          rightImg.src = `slides/slide${this.currentPage}.jpg`;
+          rightImg.alt = `Slide ${this.currentPage}`;
+          rightImg.style.width = "100%";
+          rightImg.style.height = "100%";
+          rightImg.style.objectFit = "cover";
+
+          rightImg.onload = () => {
+            rightImg.style.opacity = "1";
+          };
+          rightImg.onerror = () => {
+            rightImg.src = this.createPlaceholderImage(this.currentPage);
+          };
+
+          const rightPageNumber = document.createElement("div");
+          rightPageNumber.className = "page-number";
+          rightPageNumber.textContent = this.currentPage;
+
+          rightPage.appendChild(rightImg);
+          rightPage.appendChild(rightPageNumber);
+
+          // Add click events for preview
+          leftPage.addEventListener("click", (e) => {
+            if (e.target.tagName === "IMG") {
+              this.showSlidePreview(leftPageNum);
+            }
+          });
+          rightPage.addEventListener("click", (e) => {
+            if (e.target.tagName === "IMG") {
+              this.showSlidePreview(this.currentPage);
+            }
+          });
+
+          this.flipbook.appendChild(leftPage);
+          this.flipbook.appendChild(rightPage);
         }
 
-        createPlaceholderImage(slideNumber) {
-          const canvas = document.createElement("canvas");
-          canvas.width = 500;
-          canvas.height = 600;
-          const ctx = canvas.getContext("2d");
+        showSlidePreview(slideNumber) {
+          const previewImage = document.getElementById("previewImage");
+          const slidePreview = document.getElementById("slidePreview");
+          const overlay = document.getElementById("overlay");
 
-          // Create gradient background
-          const gradient = ctx.createLinearGradient(0, 0, 500, 600);
-          gradient.addColorStop(0, "#3498db");
-          gradient.addColorStop(1, "#2c3e50");
+          // שימוש באותן תמונות מהספרייה slides/
+          previewImage.src = `slides/slide${slideNumber}.jpg`;
+          previewImage.alt = `Slide ${slideNumber} Preview`;
 
-          ctx.fillStyle = gradient;
-          ctx.fillRect(0, 0, 500, 600);
+          // הוספת טיפול בשגיאה אם התמונה לא נמצאת
+          previewImage.onerror = () => {
+            previewImage.src = this.createPlaceholderImage(slideNumber);
+          };
 
-          // Add text
-          ctx.fillStyle = "white";
-          ctx.font = "bold 48px Arial";
-          ctx.textAlign = "center";
-          ctx.fillText(`שקופית ${slideNumber}`, 250, 250);
-
-          ctx.font = "24px Arial";
-          ctx.fillText("Efrat Bdil Portfolio", 250, 300);
-          ctx.fillText("Full Stack Developer", 250, 350);
-
-          return canvas.toDataURL();
+          slidePreview.classList.add("active");
+          overlay.classList.add("active");
         }
 
+        closeSlidePreview() {
+          const slidePreview = document.getElementById("slidePreview");
+          const overlay = document.getElementById("overlay");
+
+          slidePreview.classList.remove("active");
+          overlay.classList.remove("active");
+        }
         createNavigationDots() {
           const dotsContainer = document.getElementById("navigationDots");
           const maxDots = Math.min(15, this.totalPages);
@@ -642,6 +647,62 @@
             dotsContainer.appendChild(dot);
           }
         }
+
+        createFlipSound() {
+          // Create audio context for flip sound
+          try {
+            this.audioContext = new (window.AudioContext ||
+              window.webkitAudioContext)();
+          } catch (e) {
+            console.log("Audio not supported");
+          }
+        }
+
+        playFlipSound() {
+          if (!this.soundEnabled || !this.audioContext) return;
+
+          try {
+            const oscillator = this.audioContext.createOscillator();
+            const gainNode = this.audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(this.audioContext.destination);
+
+            oscillator.frequency.setValueAtTime(
+              800,
+              this.audioContext.currentTime
+            );
+            oscillator.frequency.exponentialRampToValueAtTime(
+              200,
+              this.audioContext.currentTime + 0.1
+            );
+
+            gainNode.gain.setValueAtTime(0.1, this.audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(
+              0.01,
+              this.audioContext.currentTime + 0.1
+            );
+
+            oscillator.start();
+            oscillator.stop(this.audioContext.currentTime + 0.1);
+          } catch (e) {
+            console.log("Sound play failed");
+          }
+        }
+
+        toggleSound() {
+          this.soundEnabled = !this.soundEnabled;
+          const soundBtn = document.getElementById("soundToggle");
+
+          if (this.soundEnabled) {
+            soundBtn.innerHTML = "🔊 Sound";
+            soundBtn.classList.remove("muted");
+          } else {
+            soundBtn.innerHTML = "🔇 Muted";
+            soundBtn.classList.add("muted");
+          }
+        }
+
         bindEvents() {
           // Navigation buttons
           document
@@ -662,32 +723,6 @@
             .getElementById("soundToggle")
             .addEventListener("click", () => this.toggleSound());
 
-          // Keyboard navigation
-          document.addEventListener("keydown", (e) => {
-            switch (e.key) {
-              case "ArrowRight":
-              case " ":
-                e.preventDefault();
-                this.nextPage();
-                break;
-              case "ArrowLeft":
-                e.preventDefault();
-                this.prevPage();
-                break;
-              case "Home":
-                e.preventDefault();
-                this.goToPage(1);
-                break;
-              case "End":
-                e.preventDefault();
-                this.goToPage(this.totalPages);
-                break;
-              case "Escape":
-                this.closeSlidePreview();
-                break;
-            }
-          });
-
           // Preview modal events
           document
             .getElementById("closePreview")
@@ -695,6 +730,17 @@
           document
             .getElementById("overlay")
             .addEventListener("click", () => this.closeSlidePreview());
+
+          // Keyboard navigation
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowRight" || e.key === " ") {
+              e.preventDefault();
+              this.nextPage();
+            } else if (e.key === "ArrowLeft") {
+              e.preventDefault();
+              this.prevPage();
+            }
+          });
 
           // Swipe gestures for mobile
           this.addSwipeGestures();
@@ -740,25 +786,8 @@
         goToPage(pageNumber) {
           if (pageNumber < 1 || pageNumber > this.totalPages) return;
 
-          const pages = this.flipbook.querySelectorAll(".page");
-
-          // Flip pages
-          for (let i = 0; i < pageNumber - 1; i++) {
-            pages[i].classList.add("flipped");
-            pages[i].classList.add("flip-animation");
-          }
-
-          for (let i = pageNumber - 1; i < this.totalPages; i++) {
-            pages[i].classList.remove("flipped");
-            pages[i].classList.remove("flip-animation");
-          }
-
-          // Clean up animation classes after animation completes
-          setTimeout(() => {
-            pages.forEach((page) => page.classList.remove("flip-animation"));
-          }, 1000);
-
           this.currentPage = pageNumber;
+          this.createSlides();
           this.updateUI();
           this.playFlipSound();
         }
@@ -801,55 +830,8 @@
             );
           });
         }
-
-        createFlipSound() {
-          try {
-            this.audioContext = new (window.AudioContext ||
-              window.webkitAudioContext)();
-          } catch (e) {
-            console.log("Audio context not supported");
-          }
-        }
-
-        playFlipSound() {
-          if (!this.soundEnabled || !this.audioContext) return;
-
-          try {
-            const oscillator = this.audioContext.createOscillator();
-            const gainNode = this.audioContext.createGain();
-
-            oscillator.connect(gainNode);
-            gainNode.connect(this.audioContext.destination);
-
-            oscillator.frequency.setValueAtTime(
-              200,
-              this.audioContext.currentTime
-            );
-            oscillator.frequency.exponentialRampToValueAtTime(
-              100,
-              this.audioContext.currentTime + 0.1
-            );
-
-            gainNode.gain.setValueAtTime(0.1, this.audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(
-              0.01,
-              this.audioContext.currentTime + 0.1
-            );
-
-            oscillator.start(this.audioContext.currentTime);
-            oscillator.stop(this.audioContext.currentTime + 0.1);
-          } catch (e) {
-            console.log("Audio error:", e);
-          }
-        }
-
-        toggleSound() {
-          this.soundEnabled = !this.soundEnabled;
-          const btn = document.getElementById("soundToggle");
-          btn.innerHTML = this.soundEnabled ? "🔊 קול" : "🔇 מושתק";
-          btn.classList.toggle("muted", !this.soundEnabled);
-        }
       }
+
       document.addEventListener("DOMContentLoaded", () => {
         new AdvancedFlipbook();
       });
