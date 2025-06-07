@@ -1,0 +1,140 @@
+/* Navigation Controls and UI Elements */
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Button Styles */
+  .btn {
+    background: linear-gradient(135deg, var(--secondary-color), #5dade2);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: var(--transition);
+    box-shadow: var(--shadow-light);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: left 0.5s;
+  }
+  
+  .btn:hover::before {
+    left: 100%;
+  }
+  
+  .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-heavy);
+    background: linear-gradient(135deg, #2980b9, var(--secondary-color));
+  }
+  
+  .btn:active {
+    transform: translateY(-1px);
+  }
+  
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  .btn:disabled:hover {
+    transform: none;
+    background: linear-gradient(135deg, var(--secondary-color), #5dade2);
+  }
+  
+  /* Sound Toggle Button */
+  .sound-toggle {
+    background: linear-gradient(135deg, var(--accent-color), #c0392b);
+  }
+  
+  .sound-toggle:hover {
+    background: linear-gradient(135deg, #c0392b, var(--accent-color));
+  }
+  
+  .sound-toggle.muted {
+    background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+  }
+  
+  /* Page Counter */
+  .page-counter {
+    background: linear-gradient(135deg, var(--primary-color), #34495e);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    box-shadow: var(--shadow-light);
+    backdrop-filter: blur(5px);
+  }
+  
+  /* Progress Bar */
+  .progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(52, 152, 219, 0.2);
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 20px 0;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      var(--secondary-color),
+      var(--gold-color)
+    );
+    border-radius: 3px;
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+  
+  /* Navigation Dots */
+  .navigation-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 20px 0;
+  }
+  
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(52, 152, 219, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .dot.active {
+    background: var(--secondary-color);
+    transform: scale(1.3);
+  }

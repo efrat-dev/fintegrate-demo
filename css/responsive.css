@@ -1,0 +1,354 @@
+/* Responsive Media Queries */
+
+/* Extra Large Screens - 2400px+ */
+@media (min-width: 2400px) {
+    .container {
+      max-width: 2400px;
+    }
+  
+    #flipbook {
+      width: 2400px;
+      height: 950px;
+    }
+  
+    .page {
+      width: 1150px;
+      height: 950px;
+    }
+  }
+  
+  /* Large Screens - 1800px-2399px */
+  @media (max-width: 2399px) and (min-width: 1800px) {
+    .container {
+      max-width: 1800px;
+    }
+  
+    #flipbook {
+      width: 1800px;
+      height: 720px;
+    }
+  
+    .page {
+      width: 870px;
+      height: 720px;
+    }
+  
+    .flipbook-container {
+      height: 760px;
+    }
+  }
+  
+  /* Medium-Large Screens - 1400px-1799px */
+  @media (max-width: 1799px) and (min-width: 1400px) {
+    .container {
+      max-width: 1400px;
+    }
+  
+    #flipbook {
+      width: 1400px;
+      height: 560px;
+    }
+  
+    .page {
+      width: 680px;
+      height: 560px;
+    }
+  
+    .flipbook-container {
+      height: 600px;
+    }
+  }
+  
+  /* Medium Screens - 1200px-1399px */
+  @media (max-width: 1399px) and (min-width: 1200px) {
+    .container {
+      max-width: 1200px;
+    }
+  
+    #flipbook {
+      width: 1200px;
+      height: 480px;
+    }
+  
+    .page {
+      width: 580px;
+      height: 480px;
+    }
+  
+    .flipbook-container {
+      height: 520px;
+    }
+  }
+  
+  /* Medium-Small Screens - 1000px-1199px */
+  @media (max-width: 1199px) and (min-width: 1000px) {
+    .container {
+      max-width: 1000px;
+    }
+  
+    #flipbook {
+      width: 1000px;
+      height: 400px;
+    }
+  
+    .page {
+      width: 480px;
+      height: 400px;
+    }
+  
+    .flipbook-container {
+      height: 440px;
+    }
+  }
+  
+  /* Small Screens - 800px-999px */
+  @media (max-width: 999px) and (min-width: 800px) {
+    .container {
+      max-width: 800px;
+    }
+  
+    #flipbook {
+      width: 800px;
+      height: 320px;
+    }
+  
+    .page {
+      width: 380px;
+      height: 320px;
+    }
+  
+    .flipbook-container {
+      height: 360px;
+    }
+  
+    .header h1 {
+      font-size: 2.5rem;
+    }
+  
+    .header p {
+      font-size: 1.2rem;
+    }
+  }
+  
+  /* Tablets - 600px-799px - Vertical Layout */
+  @media (max-width: 799px) and (min-width: 600px) {
+    .container {
+      max-width: 95%;
+      margin: 10px;
+    }
+  
+    #flipbook {
+      width: 100%;
+      max-width: 600px;
+      height: 800px; /* Double height for vertical layout */
+      flex-direction: column; /* Vertical layout */
+    }
+  
+    .page {
+      width: 100%;
+      max-width: 580px;
+      height: 380px; /* Height for vertical layout */
+      position: relative; /* Change from absolute */
+      margin: 10px auto;
+    }
+  
+    .page.left {
+      left: unset; /* Remove absolute positioning */
+    }
+  
+    .page.right {
+      right: unset; /* Remove absolute positioning */
+    }
+  
+    .flipbook-container {
+      height: 840px; /* Adjust to new height */
+      margin: 20px auto;
+    }
+  
+    .header {
+      padding: 30px 20px;
+    }
+  
+    .header h1 {
+      font-size: 2rem;
+    }
+  
+    .header p {
+      font-size: 1rem;
+    }
+  
+    .stats-bar {
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 15px;
+    }
+  
+    .controls {
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 20px;
+    }
+  
+    .btn {
+      padding: 12px 20px;
+      font-size: 1rem;
+    }
+  }
+  
+  /* Large Mobile - 480px-599px - Vertical Layout */
+  @media (max-width: 599px) and (min-width: 480px) {
+    .container {
+      max-width: 95%;
+      margin: 10px;
+      border-radius: 15px;
+    }
+  
+    #flipbook {
+      width: 100%;
+      max-width: 480px;
+      height: 640px; /* Double height for vertical layout */
+      flex-direction: column; /* Vertical layout */
+    }
+  
+    .page {
+      width: 100%;
+      max-width: 460px;
+      height: 300px; /* Height for vertical layout */
+      position: relative; /* Change from absolute */
+      margin: 10px auto;
+    }
+  
+    .page.left {
+      left: unset; /* Remove absolute positioning */
+    }
+  
+    .page.right {
+      right: unset; /* Remove absolute positioning */
+    }
+  
+    .flipbook-container {
+      height: 680px; /* Adjust to new height */
+      margin: 15px auto;
+    }
+  
+    .header {
+      padding: 25px 15px;
+    }
+  
+    .header h1 {
+      font-size: 1.8rem;
+    }
+  
+    .header p {
+      font-size: 0.9rem;
+    }
+  
+    .stats-bar {
+      flex-direction: column;
+      gap: 15px;
+      padding: 15px;
+    }
+  
+    .controls {
+      flex-direction: column;
+      gap: 12px;
+      padding: 15px;
+    }
+  
+    .btn {
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 0.9rem;
+    }
+  
+    .navigation-dots {
+      gap: 6px;
+    }
+  
+    .dot {
+      width: 10px;
+      height: 10px;
+    }
+  }
+  
+  /* Small Mobile - up to 479px */
+  @media (max-width: 479px) {
+    .container {
+      max-width: 95%;
+      margin: 5px;
+      border-radius: 10px;
+    }
+  
+    #flipbook {
+      width: 100%;
+      max-width: 400px;
+      height: 160px;
+    }
+  
+    .page {
+      width: 48%;
+      height: 160px;
+    }
+  
+    .flipbook-container {
+      height: 200px;
+      margin: 10px auto;
+      padding: 10px;
+    }
+  
+    .header {
+      padding: 20px 10px;
+    }
+  
+    .header h1 {
+      font-size: 1.5rem;
+    }
+  
+    .header p {
+      font-size: 0.8rem;
+    }
+  
+    .stats-bar {
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px;
+    }
+  
+    .controls {
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px;
+    }
+  
+    .btn {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+    }
+  
+    .page-counter {
+      padding: 8px 12px;
+      font-size: 0.9rem;
+    }
+  
+    .navigation-dots {
+      gap: 4px;
+    }
+  
+    .dot {
+      width: 8px;
+      height: 8px;
+    }
+  
+    .slide-preview {
+      width: 95%;
+      height: 95%;
+      padding: 10px;
+    }
+  
+    .close-preview {
+      width: 35px;
+      height: 35px;
+      font-size: 1.2rem;
+    }
+  }

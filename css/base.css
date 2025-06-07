@@ -1,0 +1,60 @@
+/* Base Styles and CSS Variables */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+/* CSS Custom Properties */
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #3498db;
+  --accent-color: #e74c3c;
+  --gold-color: #f39c12;
+  --bg-gradient: linear-gradient(135deg, #667eea 0%, #2e86ae 100%);
+  --shadow-light: 0 8px 25px rgba(0, 0, 0, 0.1);
+  --shadow-heavy: 0 15px 35px rgba(0, 0, 0, 0.2);
+  --transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body Base Styles */
+body {
+  font-family: "Inter", Arial, sans-serif;
+  background: var(--bg-gradient);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+/* Main Container */
+.container {
+  max-width: 2400px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 25px;
+  box-shadow: var(--shadow-heavy);
+  backdrop-filter: blur(15px);
+  overflow: hidden;
+  position: relative;
+}
+
+.container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(
+    90deg,
+    var(--secondary-color),
+    var(--gold-color),
+    var(--accent-color)
+  );
+}
