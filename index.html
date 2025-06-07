@@ -1,119 +1,968 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he" dir="rtl">
   <head>
     <meta charset="UTF-8" />
-    <title>Digital Flipbook</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ספר דפדוף מקצועי - Efrat Bdil Portfolio</title>
     <style>
+      @import url("https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&display=swap");
+
       * {
+        margin: 0;
+        padding: 0;
         box-sizing: border-box;
       }
 
+      :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #3498db;
+        --accent-color: #e74c3c;
+        --gold-color: #f39c12;
+        --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --shadow-light: 0 8px 25px rgba(0, 0, 0, 0.1);
+        --shadow-heavy: 0 15px 35px rgba(0, 0, 0, 0.2);
+        --transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+      }
+
       body {
-        background: linear-gradient(to bottom, #2c3e50, #34495e);
+        font-family: "Heebo", Arial, sans-serif;
+        background: var(--bg-gradient);
+        min-height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
+        padding: 20px;
+        overflow-x: hidden;
       }
 
-      #flipbook {
-        aspect-ratio: 3 / 4; /* keeps proportion */
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-        background: white;
+      .container {
+        max-width: 1400px;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 25px;
+        box-shadow: var(--shadow-heavy);
+        backdrop-filter: blur(15px);
+        overflow: hidden;
+        position: relative;
       }
 
-      #flipbook .page {
-        background-color: white;
+      .container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(
+          90deg,
+          var(--secondary-color),
+          var(--gold-color),
+          var(--accent-color)
+        );
+      }
+
+      .header {
+        background: linear-gradient(135deg, #2c3e50, #34495e);
+        color: white;
+        padding: 40px;
+        text-align: center;
+        position: relative;
         overflow: hidden;
       }
 
-      .page img {
-        object-fit: cover;
-        display: block;
+      .header::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          transparent 70%
+        );
+        animation: rotate 20s linear infinite;
       }
 
-      @media (max-width: 600px) {
-        #flipbook {
-          width: 95vw;
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
         }
       }
-    </style>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/blasten/turn.js@master/turn.js"></script>
+      .header h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+        position: relative;
+        z-index: 2;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .header p {
+        font-size: 1.4rem;
+        opacity: 0.9;
+        position: relative;
+        z-index: 2;
+      }
+
+      .stats-bar {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        padding: 20px;
+        background: rgba(52, 152, 219, 0.1);
+        border-bottom: 1px solid rgba(52, 152, 219, 0.2);
+      }
+
+      .stat-item {
+        text-align: center;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--secondary-color);
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        color: var(--primary-color);
+        margin-top: 5px;
+      }
+
+      .flipbook-container {
+        position: relative;
+        width: 100%;
+        height: 700px;
+        perspective: 2000px;
+        margin: 40px auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: radial-gradient(
+          ellipse at center,
+          rgba(255, 255, 255, 0.1) 0%,
+          transparent 70%
+        );
+      }
+
+      #flipbook {
+        position: relative;
+        width: 1000px;
+        height: 600px;
+        transform-style: preserve-3d;
+        transition: var(--transition);
+      }
+
+      .page {
+        position: absolute;
+        width: 500px;
+        height: 600px;
+        background: white;
+        border: 2px solid #e0e0e0;
+        border-radius: 15px;
+        box-shadow: var(--shadow-light);
+        transform-style: preserve-3d;
+        transform-origin: left center;
+        transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        overflow: hidden;
+        cursor: pointer;
+      }
+
+      .page:hover {
+        box-shadow: var(--shadow-heavy);
+      }
+
+      .page.flipped {
+        transform: rotateY(-180deg);
+      }
+
+      .page img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 13px;
+        transition: transform 0.3s ease;
+      }
+
+      .page:hover img {
+        transform: scale(1.02);
+      }
+
+      .page-number {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        background: rgba(44, 62, 80, 0.9);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 600;
+        z-index: 10;
+        backdrop-filter: blur(5px);
+      }
+
+      .controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 25px;
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      .btn {
+        background: linear-gradient(135deg, var(--secondary-color), #5dade2);
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 1.1rem;
+        font-weight: 600;
+        transition: var(--transition);
+        box-shadow: var(--shadow-light);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .btn:hover::before {
+        left: 100%;
+      }
+
+      .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-heavy);
+        background: linear-gradient(135deg, #2980b9, var(--secondary-color));
+      }
+
+      .btn:active {
+        transform: translateY(-1px);
+      }
+
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .btn:disabled:hover {
+        transform: none;
+        background: linear-gradient(135deg, var(--secondary-color), #5dade2);
+      }
+
+      .page-counter {
+        background: linear-gradient(135deg, var(--primary-color), #34495e);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        box-shadow: var(--shadow-light);
+        backdrop-filter: blur(5px);
+      }
+
+      .sound-toggle {
+        background: linear-gradient(135deg, var(--accent-color), #c0392b);
+      }
+
+      .sound-toggle:hover {
+        background: linear-gradient(135deg, #c0392b, var(--accent-color));
+      }
+
+      .sound-toggle.muted {
+        background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+      }
+
+      .download-section {
+        background: linear-gradient(
+          135deg,
+          rgba(52, 73, 94, 0.05),
+          rgba(44, 62, 80, 0.05)
+        );
+        padding: 40px;
+        text-align: center;
+        border-top: 1px solid #eee;
+      }
+
+      .download-section h3 {
+        color: var(--primary-color);
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        font-weight: 600;
+      }
+
+      .download-btn {
+        background: linear-gradient(135deg, #27ae60, #2ecc71);
+        font-size: 1.2rem;
+        padding: 18px 35px;
+        margin: 0 15px 10px 0;
+        display: inline-flex;
+      }
+
+      .download-btn:hover {
+        background: linear-gradient(135deg, #219a52, #27ae60);
+      }
+
+      .loading-spinner {
+        display: none;
+        width: 50px;
+        height: 50px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid var(--secondary-color);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 6px;
+        background: rgba(52, 152, 219, 0.2);
+        border-radius: 3px;
+        overflow: hidden;
+        margin: 20px 0;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          var(--secondary-color),
+          var(--gold-color)
+        );
+        border-radius: 3px;
+        transition: width 0.3s ease;
+        width: 0%;
+      }
+
+      .flip-animation {
+        animation: pageFlip 1s ease-in-out;
+      }
+
+      @keyframes pageFlip {
+        0% {
+          transform: rotateY(0deg) scale(1);
+        }
+        25% {
+          transform: rotateY(-45deg) scale(0.95);
+        }
+        50% {
+          transform: rotateY(-90deg) scale(0.9);
+        }
+        75% {
+          transform: rotateY(-135deg) scale(0.95);
+        }
+        100% {
+          transform: rotateY(-180deg) scale(1);
+        }
+      }
+
+      .navigation-dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin: 20px 0;
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(52, 152, 219, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .dot.active {
+        background: var(--secondary-color);
+        transform: scale(1.3);
+      }
+
+      .fullscreen-btn {
+        background: linear-gradient(135deg, var(--gold-color), #e67e22);
+      }
+
+      .fullscreen-btn:hover {
+        background: linear-gradient(135deg, #e67e22, var(--gold-color));
+      }
+
+      .zoom-controls {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 100;
+      }
+
+      .zoom-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(44, 62, 80, 0.8);
+        color: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+      }
+
+      .zoom-btn:hover {
+        background: rgba(44, 62, 80, 1);
+        transform: scale(1.1);
+      }
+
+      @media (max-width: 1200px) {
+        #flipbook {
+          width: 800px;
+          height: 500px;
+        }
+
+        .page {
+          width: 400px;
+          height: 500px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        #flipbook {
+          width: 90%;
+          height: 400px;
+        }
+
+        .page {
+          width: 45%;
+          height: 400px;
+        }
+
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .controls {
+          flex-wrap: wrap;
+          gap: 15px;
+        }
+
+        .stats-bar {
+          flex-wrap: wrap;
+          gap: 20px;
+        }
+      }
+
+      .slide-preview {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        width: 80%;
+        height: 80%;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        transition: transform 0.3s ease;
+        overflow: hidden;
+      }
+
+      .slide-preview.active {
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      .slide-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .close-preview {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1001;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+    </style>
   </head>
   <body>
-    <div id="flipbook">
-      <div class="page">
-        <img
-          src="slides/slide1.jpg"
-          alt="Slide 1"
-          style="width: 100%; height: 100%"
-        />
+    <div class="container">
+      <div class="header">
+        <h1>📚 ספר דפדוף דיגיטלי מתקדם</h1>
+        <p>Portfolio מקצועי - Efrat Bdil | Full Stack Developer</p>
       </div>
-      <div class="page">
-        <img
-          src="slides/slide2.jpg"
-          alt="Slide 2"
-          style="width: 100%; height: 100%"
-        />
+
+      <div class="stats-bar">
+        <div class="stat-item">
+          <div class="stat-number">65</div>
+          <div class="stat-label">שקופיות</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">HD</div>
+          <div class="stat-label">איכות תמונה</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">3D</div>
+          <div class="stat-label">אפקט דפדוף</div>
+        </div>
       </div>
-      <div class="page">
-        <img
-          src="slides/slide3.jpg"
-          alt="Slide 3"
-          style="width: 100%; height: 100%"
-        />
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
       </div>
-      <div class="page">
-        <img
-          src="slides/slide4.jpg"
-          alt="Slide 4"
-          style="width: 100%; height: 100%"
-        />
+
+      <div class="flipbook-container">
+        <div class="zoom-controls">
+          <button class="zoom-btn" id="zoomIn" title="זום פנימה">+</button>
+          <button class="zoom-btn" id="zoomOut" title="זום החוצה">−</button>
+          <button class="zoom-btn" id="resetZoom" title="איפוס זום">⌂</button>
+        </div>
+
+        <div id="flipbook">
+          <!-- כל 65 השקופיות נוצרות כאן באופן דינמי -->
+        </div>
       </div>
-      <div class="page">
-        <img
-          src="slides/slide5.jpg"
-          alt="Slide 5"
-          style="width: 100%; height: 100%"
-        />
+
+      <div class="navigation-dots" id="navigationDots"></div>
+
+      <div class="controls">
+        <button class="btn" id="firstPage">⏮️ עמוד ראשון</button>
+        <button class="btn" id="prevPage">◀️ הקודם</button>
+        <div class="page-counter">
+          <span id="currentPage">1</span> / <span id="totalPages">65</span>
+        </div>
+        <button class="btn" id="nextPage">הבא ▶️</button>
+        <button class="btn" id="lastPage">עמוד אחרון ⏭️</button>
+        <button class="btn sound-toggle" id="soundToggle">🔊 קול</button>
+        <button class="btn fullscreen-btn" id="fullscreenBtn">
+          🔍 מסך מלא
+        </button>
       </div>
-      <div class="page">
-        <img
-          src="slides/slide6.jpg"
-          alt="Slide 6"
-          style="width: 100%; height: 100%"
-        />
-      </div>
-      <div class="page">
-        <img
-          src="slides/slide7.jpg"
-          alt="Slide 7"
-          style="width: 100%; height: 100%"
-        />
-      </div>
-      <div class="page">
-        <img
-          src="slides/slide8.jpg"
-          alt="Slide 8"
-          style="width: 100%; height: 100%"
-        />
+
+      <div class="download-section">
+        <h3>📥 הורדת קבצים</h3>
+        <p style="margin-bottom: 20px; color: #666">
+          כל הקבצים מוכנים להורדה מיידית
+        </p>
+        <button class="btn download-btn" onclick="downloadAllSlides()">
+          💾 הורד את כל השקופיות (ZIP)
+        </button>
+        <button class="btn download-btn" onclick="downloadHTML()">
+          🌐 הורד קובץ HTML
+        </button>
+        <button class="btn download-btn" onclick="downloadPDF()">
+          📄 הורד כ-PDF
+        </button>
+        <div class="loading-spinner" id="loadingSpinner"></div>
       </div>
     </div>
+
+    <!-- Slide Preview Modal -->
+    <div class="overlay" id="overlay"></div>
+    <div class="slide-preview" id="slidePreview">
+      <button class="close-preview" id="closePreview">×</button>
+      <img id="previewImage" src="" alt="Slide Preview" />
+    </div>
+
     <script>
-      $(document).ready(function () {
-        $("#flipbook").turn({
-          width: 1068,
-          height: 900,
-          autoCenter: true,
-          display: "single",
-          acceleration: true,
-          gradients: true,
-        });
-      });
+      class AdvancedFlipbook {
+        constructor() {
+          this.currentPage = 1;
+          this.totalPages = 65;
+          this.soundEnabled = true;
+          this.zoomLevel = 1;
+          this.isFullscreen = false;
+          this.flipbook = document.getElementById("flipbook");
+
+          this.init();
+          this.createSlides();
+          this.bindEvents();
+          this.createNavigationDots();
+          this.updateProgress();
+          this.createFlipSound();
+        }
+
+        init() {
+          // Update total pages display
+          document.getElementById("totalPages").textContent = this.totalPages;
+          document.getElementById("currentPage").textContent = this.currentPage;
+        }
+
+        createSlides() {
+          for (let i = 1; i <= this.totalPages; i++) {
+            const page = document.createElement("div");
+            page.className = "page";
+            page.style.zIndex = this.totalPages - i;
+
+            const img = document.createElement("img");
+            img.src = `slides/slide${i}.jpg`;
+            img.alt = `Slide ${i}`;
+            img.style.width = "100%";
+            img.style.height = "100%";
+            img.style.objectFit = "cover";
+
+            // Add loading placeholder
+            img.onload = () => {
+              img.style.opacity = "1";
+            };
+            img.onerror = () => {
+              img.src = this.createPlaceholderImage(i);
+            };
+
+            const pageNumber = document.createElement("div");
+            pageNumber.className = "page-number";
+            pageNumber.textContent = i;
+
+            page.appendChild(img);
+            page.appendChild(pageNumber);
+
+            // Add click event for preview
+            page.addEventListener("click", (e) => {
+              if (e.target.tagName === "IMG") {
+                this.showSlidePreview(i);
+              }
+            });
+
+            this.flipbook.appendChild(page);
+          }
+        }
+
+        createPlaceholderImage(slideNumber) {
+          const canvas = document.createElement("canvas");
+          canvas.width = 500;
+          canvas.height = 600;
+          const ctx = canvas.getContext("2d");
+
+          // Create gradient background
+          const gradient = ctx.createLinearGradient(0, 0, 500, 600);
+          gradient.addColorStop(0, "#3498db");
+          gradient.addColorStop(1, "#2c3e50");
+
+          ctx.fillStyle = gradient;
+          ctx.fillRect(0, 0, 500, 600);
+
+          // Add text
+          ctx.fillStyle = "white";
+          ctx.font = "bold 48px Arial";
+          ctx.textAlign = "center";
+          ctx.fillText(`שקופית ${slideNumber}`, 250, 250);
+
+          ctx.font = "24px Arial";
+          ctx.fillText("Efrat Bdil Portfolio", 250, 300);
+          ctx.fillText("Full Stack Developer", 250, 350);
+
+          return canvas.toDataURL();
+        }
+
+        createNavigationDots() {
+          const dotsContainer = document.getElementById("navigationDots");
+          const maxDots = Math.min(15, this.totalPages);
+          const step = Math.ceil(this.totalPages / maxDots);
+
+          for (let i = 1; i <= this.totalPages; i += step) {
+            const dot = document.createElement("div");
+            dot.className = "dot";
+            if (i === 1) dot.classList.add("active");
+
+            dot.addEventListener("click", () => {
+              this.goToPage(i);
+            });
+
+            dotsContainer.appendChild(dot);
+          }
+        }
+
+        bindEvents() {
+          // Navigation buttons
+          document
+            .getElementById("nextPage")
+            .addEventListener("click", () => this.nextPage());
+          document
+            .getElementById("prevPage")
+            .addEventListener("click", () => this.prevPage());
+          document
+            .getElementById("firstPage")
+            .addEventListener("click", () => this.goToPage(1));
+          document
+            .getElementById("lastPage")
+            .addEventListener("click", () => this.goToPage(this.totalPages));
+
+          // Sound toggle
+          document
+            .getElementById("soundToggle")
+            .addEventListener("click", () => this.toggleSound());
+
+          // Fullscreen toggle
+          document
+            .getElementById("fullscreenBtn")
+            .addEventListener("click", () => this.toggleFullscreen());
+
+          // Zoom controls
+          document
+            .getElementById("zoomIn")
+            .addEventListener("click", () => this.zoomIn());
+          document
+            .getElementById("zoomOut")
+            .addEventListener("click", () => this.zoomOut());
+          document
+            .getElementById("resetZoom")
+            .addEventListener("click", () => this.resetZoom());
+
+          // Keyboard navigation
+          document.addEventListener("keydown", (e) => {
+            switch (e.key) {
+              case "ArrowRight":
+              case " ":
+                e.preventDefault();
+                this.nextPage();
+                break;
+              case "ArrowLeft":
+                e.preventDefault();
+                this.prevPage();
+                break;
+              case "Home":
+                e.preventDefault();
+                this.goToPage(1);
+                break;
+              case "End":
+                e.preventDefault();
+                this.goToPage(this.totalPages);
+                break;
+              case "Escape":
+                this.closeSlidePreview();
+                break;
+            }
+          });
+
+          // Preview modal events
+          document
+            .getElementById("closePreview")
+            .addEventListener("click", () => this.closeSlidePreview());
+          document
+            .getElementById("overlay")
+            .addEventListener("click", () => this.closeSlidePreview());
+
+          // Swipe gestures for mobile
+          this.addSwipeGestures();
+        }
+
+        addSwipeGestures() {
+          let startX = 0;
+          let startY = 0;
+
+          this.flipbook.addEventListener("touchstart", (e) => {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+          });
+
+          this.flipbook.addEventListener("touchend", (e) => {
+            const endX = e.changedTouches[0].clientX;
+            const endY = e.changedTouches[0].clientY;
+            const diffX = startX - endX;
+            const diffY = startY - endY;
+
+            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+              if (diffX > 0) {
+                this.nextPage();
+              } else {
+                this.prevPage();
+              }
+            }
+          });
+        }
+
+        nextPage() {
+          if (this.currentPage < this.totalPages) {
+            this.goToPage(this.currentPage + 1);
+          }
+        }
+
+        prevPage() {
+          if (this.currentPage > 1) {
+            this.goToPage(this.currentPage - 1);
+          }
+        }
+
+        goToPage(pageNumber) {
+          if (pageNumber < 1 || pageNumber > this.totalPages) return;
+
+          const pages = this.flipbook.querySelectorAll(".page");
+
+          // Flip pages
+          for (let i = 0; i < pageNumber - 1; i++) {
+            pages[i].classList.add("flipped");
+            pages[i].classList.add("flip-animation");
+          }
+
+          for (let i = pageNumber - 1; i < this.totalPages; i++) {
+            pages[i].classList.remove("flipped");
+            pages[i].classList.remove("flip-animation");
+          }
+
+          // Clean up animation classes after animation completes
+          setTimeout(() => {
+            pages.forEach((page) => page.classList.remove("flip-animation"));
+          }, 1000);
+
+          this.currentPage = pageNumber;
+          this.updateUI();
+          this.playFlipSound();
+        }
+
+        updateUI() {
+          document.getElementById("currentPage").textContent = this.currentPage;
+
+          // Update navigation buttons
+          document.getElementById("prevPage").disabled = this.currentPage === 1;
+          document.getElementById("firstPage").disabled =
+            this.currentPage === 1;
+          document.getElementById("nextPage").disabled =
+            this.currentPage === this.totalPages;
+          document.getElementById("lastPage").disabled =
+            this.currentPage === this.totalPages;
+
+          // Update progress bar
+          this.updateProgress();
+
+          // Update navigation dots
+          this.updateNavigationDots();
+        }
+
+        updateProgress() {
+          const progress = (this.currentPage / this.totalPages) * 100;
+          document.getElementById("progressFill").style.width = `${progress}%`;
+        }
+
+        updateNavigationDots() {
+          const dots = document.querySelectorAll(".dot");
+          const maxDots = dots.length;
+          const step = Math.ceil(this.totalPages / maxDots);
+
+          dots.forEach((dot, index) => {
+            const pageForDot = index * step + 1;
+            dot.classList.toggle(
+              "active",
+              this.currentPage >= pageForDot &&
+                this.currentPage < pageForDot + step
+            );
+          });
+        }
+
+        createFlipSound() {
+          try {
+            this.audioContext = new (window.AudioContext ||
+              window.webkitAudioContext)();
+          } catch (e) {
+            console.log("Audio context not supported");
+          }
+        }
+
+        playFlipSound() {
+          if (!this.soundEnabled || !this.audioContext) return;
+
+          try {
+            const oscillator = this.audioContext.createOscillator();
+            const gainNode = this.audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(this.audioContext.destination);
+
+            oscillator.frequency.setValueAtTime(
+              200,
+              this.audioContext.currentTime
+            );
+            oscillator.frequency.exponentialRampToValueAtTime(
+              100,
+              this.audioContext.currentTime + 0.1
+            );
+
+            gainNode.gain.setValueAtTime(0.1, this.audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(
+              0.01,
+              this.audioContext.currentTime + 0.1
+            );
+
+            oscillator.start(this.audioContext.currentTime);
+            oscillator.stop(this.audioContext.currentTime + 0.1);
+          } catch (e) {
+            console.log("Audio error:", e);
+          }
+        }
+
+        toggleSound() {
+          this.soundEnabled = !this.soundEnabled;
+          const btn = document.getElementById("soundToggle");
+          btn.innerHTML = this.soundEnabled ? "🔊 קול" : "🔇 מושתק";
+          btn.classList.toggle("muted", !this.soundEnabled);
+        }
+      }
     </script>
   </body>
 </html>
