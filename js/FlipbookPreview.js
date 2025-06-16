@@ -30,7 +30,7 @@ class FlipbookPreview {
         const overlay = document.getElementById("overlay");
 
         // Use the same images from the slides/ directory
-        previewImage.src = `slides/slide${slideNumber}.jpg`;
+        previewImage.src = `slides/fintegrate-images-${slideNumber-1}.jpg`;
         previewImage.alt = `Slide ${slideNumber} Preview`;
 
         // Handle error if image is not found

@@ -6,7 +6,7 @@
 class FlipbookCore {
     constructor() {
         this.currentPage = 1;
-        this.totalPages = 65;
+        this.totalPages = 92;
         this.flipbook = document.getElementById("flipbook");
         
         this.init();
@@ -99,7 +99,7 @@ class FlipbookCore {
 
     createImageElement(pageNum) {
         const img = document.createElement("img");
-        img.src = `slides/slide${pageNum}.jpg`;
+        img.src = `slides/fintegrate-images-${pageNum-1}.jpg`;
         img.alt = `Slide ${pageNum}`;
         img.style.width = "100%";
         img.style.height = "100%";
