@@ -99,7 +99,7 @@ class FlipbookCore {
 
     createImageElement(pageNum) {
         const img = document.createElement("img");
-        img.src = `slides/fintegrate-images-${pageNum-1}.jpg`;
+        img.src = `compressed_slides/fintegrate-images-${pageNum-1}-min.jpg`;
         img.alt = `Slide ${pageNum}`;
         img.style.width = "100%";
         img.style.height = "100%";
