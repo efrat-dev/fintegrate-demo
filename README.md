@@ -1,6 +1,6 @@
 # 📚 Professional Work Summary – Digital Flipbook
 
-This project is a **dynamic digital flipbook** presenting a visual summary of the developer experience and achievements of **Efrat Bdil**, as a Full Stack Developer at **Extrack**.
+This project is a **dynamic digital flipbook** presenting a visual summary of the developer experience and achievements of **Efrat Bdil**, as a Full Stack Developer at [ExtraTech](https://extra.tech/he/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/).
 
 ## 🔍 Overview
 
